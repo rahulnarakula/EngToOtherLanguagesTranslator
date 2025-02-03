@@ -1,3 +1,4 @@
+## DON'T EDIT THIS CELL
 import requests
 import json
 
@@ -16,8 +17,6 @@ def google_translate(text, from_lang, to_lang):
         print("Error with the request, status code:", response.status_code)
         return None
 
- 
-##
 def flatten_dict(d, parent_key='', sep='.'):
     items = []
     for k, v in d.items():
@@ -28,7 +27,6 @@ def flatten_dict(d, parent_key='', sep='.'):
             items.append((new_key, v))
     return dict(items)
 
-##
 def unflatten_dict(d, sep='.'):
     result_dict = {}
     for flat_key, value in d.items():
@@ -42,14 +40,30 @@ def unflatten_dict(d, sep='.'):
     return result_dict
 
 langs = ["es","fr-CA","zh-CN","zh-HK"]
-foreign_data = {}
-en_data = {
-    "Date_Before_PreviousPeriod": "Before previous period"
-}
 
-for lang in langs:
-  print(lang)
-  for key in en_data.keys():
-    foreign_data[key] = google_translate(en_data[key].replace("{","{0z"), "en", lang).replace("{0z", "{")
-  json_output = json.dumps(foreign_data, ensure_ascii=False, indent=4)
-  print(json_output)
+def print_in_foreign_languages(en_data):
+    foreign_data = {}
+
+    for lang in langs:
+        print(lang)
+        for key, value in en_data.items():
+            translated_value = google_translate(value.replace("{", "{0z"), "en", lang).replace("{0z", "{")
+            foreign_data[key] = translated_value
+
+        json_output = json.dumps(foreign_data, ensure_ascii=False, indent=4)
+        print(json_output)
+## Below is the default content for second cell in case it is edited.
+# en_data = {
+    
+# }
+# print_in_foreign_languages(en_data)
+
+## Edit this cell to input en data
+en_data = {
+    "TeamDialog_ManageOfferings": "Turn On/Off Functionalities",
+    "TeamDialog_NewTeamValidationNoOrganizationNameMessage": "Organization is required",
+    "TeamDialog_NewTeamValidationNoFamilyOfficeTypeMessage": "Family Office Type is required",
+    "TeamDialog_NewTeamValidationNoTeamIpmNumberMessage": "Team IPM Number is required.",
+    "TeamDialog_NewTeamValidationNoTeamNameMessage": "Team name is required. ",
+}
+print_in_foreign_languages(en_data)
